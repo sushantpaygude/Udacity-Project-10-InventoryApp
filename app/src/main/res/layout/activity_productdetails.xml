@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/selected_productImage"
+            android:background="@drawable/plus_blue"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selected_productName"
+            android:text="Bag"
+            android:textSize="45sp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selected_productPrice"
+            android:text="10$"
+            android:textSize="30sp"
+            android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textSize="25sp"
+                android:layout_gravity="left"
+                android:layout_margin="5dp"
+                android:id="@+id/text_quant"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selected_productQuantity"
+                android:text="45"
+                android:textSize="25sp"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/text_quant"
+                android:layout_marginTop="5dp"/>
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/button_increaseQuant"
+                android:background="@drawable/plus_blue"
+                android:layout_margin="2dp"
+                android:layout_toRightOf="@id/selected_productQuantity"
+                android:layout_below="@+id/text_quant"/>
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/button_decreaseQuant"
+                android:background="@drawable/minus_blue"
+                android:layout_margin="2dp"
+                android:layout_below="@id/button_increaseQuant"
+                android:layout_toRightOf="@id/selected_productQuantity"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_margin="5dp"
+            android:id="@+id/rightLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supplier"
+                android:textSize="25sp"
+                android:id="@+id/text_supplier"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selected_productSupplier"
+                android:text="Nike"
+                android:textSize="30sp"
+                android:layout_below="@id/text_supplier"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_order"
+                android:layout_below="@id/selected_productSupplier"
+                android:text="@string/order_more"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selected_productContact"
+                android:layout_below="@id/text_order"
+                android:text="9860797888"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/button_contact"
+                android:background="@drawable/phone_blue"
+                android:layout_below="@+id/selected_productContact"
+                android:layout_alignStart="@+id/selected_productContact"
+                android:layout_alignEnd="@+id/selected_productContact" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="90dp"
+        android:id="@+id/button_delete"
+        android:layout_gravity="center"
+        android:background="@drawable/delete_blue"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/delete"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+</ScrollView>
