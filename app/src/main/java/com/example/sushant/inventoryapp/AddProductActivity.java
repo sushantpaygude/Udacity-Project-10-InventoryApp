@@ -100,9 +100,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             newProductValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY, Integer.parseInt(productQuantityView.getText().toString()));
             newProductValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_SUPPLIER, productSupplierNameView.getText().toString());
             newProductValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_SUPPLIER_CONTACT, productSupplierContactView.getText().toString());
-            Log.e("IMAGE", "STRING in addnewproduct():" + imgDecodableString);
-
-            if (imgDecodableString != null) {
+              if (imgDecodableString != null) {
                 newProductValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_IMAGE, imgDecodableString);
             }
             Uri uri = getContentResolver().insert(InventoryProvider.CONTENT_URI, newProductValues);
@@ -128,9 +126,11 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             } else {
                 validator = true;
             }
-
-            if (productPriceView.getText().toString().matches(".*[a-zA-Z]+.*") || productQuantityView.getText().toString().matches(".*[a-zA-Z]+.*") || productSupplierContactView.getText().toString().matches(".*[a-zA-Z]+.*") ||
-                    Integer.parseInt(productSupplierContactView.getText().toString()) != 10) {
+            
+            if (productPriceView.getText().toString().matches(".*[a-zA-Z]+.*") || productQuantityView.getText().toString().matches(".*[a-zA-Z]+.*") || productSupplierContactView.getText().toString().matches(".*[a-zA-Z]+.*")
+                    || productSupplierContactView.getText().toString().length()!=10) {
+                Log.e("NO","IS:"+productSupplierContactView.getText().toString());
+                Log.e("VAl","IS"+validator);
                 validator = false;
             }
         }catch (Exception e)
