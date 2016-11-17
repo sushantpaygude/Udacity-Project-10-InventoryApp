@@ -2,7 +2,10 @@ package com.example.sushant.inventoryapp.Cards;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.LoaderManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +27,14 @@ import java.util.List;
  * Created by sushant on 10/11/16.
  */
 public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
-    public Context currentContext;
-    public ProductIntroAdapter(Context context, int resource) {
-        super(context, resource);
-        currentContext=context;
+    private AppCompatActivity mActivity;
+    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks;
+
+    public ProductIntroAdapter(AppCompatActivity activity, int resource) {
+        super(activity.getApplicationContext(), resource);
+        this.mActivity = activity;
+        // get LoaderCallback instance from activity
+        this.mLoaderCallbacks = (LoaderManager.LoaderCallbacks<Cursor>) activity;
     }
     List<InventoryInfo> cardList = new ArrayList<InventoryInfo>();
    public static class CardViewHolder {
@@ -40,8 +47,12 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
     @Override
     public void add(InventoryInfo object) {
         super.add(object);
+        notifyDataSetChanged();
     }
-
+    public void clear(){
+        super.clear();
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return super.getCount();
@@ -87,8 +98,11 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY, saleAmount);
                 int updateQuery =getContext().getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{cardViewHolder.ProductNameView.getText().toString()});
-
-            //    currentContext.getSupportLoaderManager().restartLoader(1, null, this);
+                if (updateQuery>0){
+                    // Restart loader implemented on ManiActivity
+                    mActivity.getSupportLoaderManager().restartLoader(1,null, mLoaderCallbacks);
+                }
+            //    mContext.getSupportLoaderManager().restartLoader(1, null, this);
             }
         });
         return row;
