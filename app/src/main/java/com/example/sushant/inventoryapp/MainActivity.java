@@ -29,7 +29,7 @@ import com.example.sushant.inventoryapp.Contracts.InventoryHelper;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     TextView textNoRecords;
     TextView textTitle;
     ProductIntroAdapter productIntroAdapter;
@@ -86,29 +86,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         intent.putExtra("SelectedProduct",selectedProduct);
         startActivity(intent);
     }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         productListView.setAdapter(productIntroAdapter);
 
         return new CursorLoader(this,
                 InventoryProvider.CONTENT_URI,
-                new String[]{"product_name","product_price","product_image"}, null, null, null);
-
+                new String[]{"product_name","product_quantity","product_image"}, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
         int nameColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_NAME);
-        int priceColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_PRICE);
+        int quantColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY);
         int imageColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_IMAGE);
-
 
         try {
             while (cursor.moveToNext()) {
                 InventoryInfo inventoryInfo = new InventoryInfo();
                 inventoryInfo.setProductName(cursor.getString(nameColumnIndex));
-                inventoryInfo.setProductPrice(cursor.getString(priceColumnIndex));
+                inventoryInfo.setProductQuantity(Integer.parseInt(cursor.getString(quantColumnIndex)));
                 inventoryInfo.setProductImage(cursor.getString(imageColumnIndex));
                 productIntroAdapter.add(inventoryInfo);
             }
@@ -123,4 +122,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
+    public void saleClicked(View view)
+    {
+        getSupportLoaderManager().restartLoader(1,null,this);
+    }
+
+//    @Override
+//    public void onClick(View v) {
+//        int clicked=v.getId();
+//        switch (clicked) {
+//            case R.id.button_sale:
+//            Toast.makeText(getApplicationContext(), "SALE CLICKED", Toast.LENGTH_LONG).show();
+//            TextView saleView = (TextView) findViewById(R.id.product_price);
+//            TextView productName = (TextView) findViewById(R.id.product_name);
+//            int saleAmount = Integer.parseInt(saleView.getText().toString());
+//            saleAmount -= 1;
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_PRICE, saleAmount);
+//            int updateQuery = getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{productName.getText().toString()});
+//            getSupportLoaderManager().restartLoader(1, null, this);
+//                break;
+//        }
+//    }
 }

@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/product_price"
+        android:id="@+id/product_quant"
         android:textSize="20sp"
         android:gravity="center_horizontal|center_vertical"
         android:text="SHOES"
@@ -47,9 +47,17 @@
         android:layout_weight="1" >
     </Space>
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/right_blue"
-        android:layout_gravity="center"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_sale"
+        android:text="SALE"
+        android:textSize="50sp"
+        android:layout_gravity="center"
+        android:focusable="false"/>
+    <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:background="@drawable/right_blue"-->
+        <!--android:layout_gravity="center"/>-->
 </LinearLayout>

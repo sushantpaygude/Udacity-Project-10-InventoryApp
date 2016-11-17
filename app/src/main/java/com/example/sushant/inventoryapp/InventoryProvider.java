@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class InventoryProvider extends ContentProvider {
     static final String PROVIDER_NAME="com.example.sushant.inventoryapp.InventoryProvider";
     static final String URL="content://"+PROVIDER_NAME+"/Inventory";
-    static final Uri CONTENT_URI=Uri.parse(URL);
+    public static final Uri CONTENT_URI=Uri.parse(URL);
     private SQLiteDatabase db;
     static UriMatcher uriMatcher = null;
     static final int URI_CODE=1;
@@ -31,7 +31,7 @@ public class InventoryProvider extends ContentProvider {
     static {
     uriMatcher=new UriMatcher(UriMatcher.NO_MATCH);
     uriMatcher.addURI(PROVIDER_NAME,"Inventory",URI_CODE);
-    uriMatcher.addURI(PROVIDER_NAME,"Inventory/*",URI_CODE);
+    uriMatcher.addURI(PROVIDER_NAME,"Inventory/*",URI_CODE+1);
     }
 
     @Override

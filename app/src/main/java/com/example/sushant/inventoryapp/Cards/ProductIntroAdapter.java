@@ -1,14 +1,20 @@
 package com.example.sushant.inventoryapp.Cards;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.sushant.inventoryapp.Contracts.InventoryContracts;
+import com.example.sushant.inventoryapp.InventoryProvider;
 import com.example.sushant.inventoryapp.R;
 
 import java.util.ArrayList;
@@ -18,14 +24,17 @@ import java.util.List;
  * Created by sushant on 10/11/16.
  */
 public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
+    public Context currentContext;
     public ProductIntroAdapter(Context context, int resource) {
         super(context, resource);
+        currentContext=context;
     }
     List<InventoryInfo> cardList = new ArrayList<InventoryInfo>();
-    static class CardViewHolder {
+   public static class CardViewHolder {
         ImageView ProductThumbnailView;
         TextView ProductNameView;
-        TextView ProductPriceView;
+        TextView ProductQuantView;
+        Button ProductSaleButton;
     }
 
     @Override
@@ -47,14 +56,15 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View row=convertView;
-        CardViewHolder cardViewHolder;
+        final CardViewHolder cardViewHolder;
         if (row == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.list_item_card, parent, false);
             cardViewHolder = new CardViewHolder();
             cardViewHolder.ProductNameView = (TextView) row.findViewById(R.id.product_name);
             cardViewHolder.ProductThumbnailView = (ImageView) row.findViewById(R.id.product_thumbnail);
-            cardViewHolder.ProductPriceView = (TextView) row.findViewById(R.id.product_price);
+            cardViewHolder.ProductQuantView = (TextView) row.findViewById(R.id.product_quant);
+            cardViewHolder.ProductSaleButton=(Button)row.findViewById(R.id.button_sale);
             row.setTag(cardViewHolder);
         }
         else {
@@ -63,8 +73,24 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
 
         InventoryInfo inventoryInfo=getItem(position);
         cardViewHolder.ProductNameView.setText(inventoryInfo.getProductName());
-        cardViewHolder.ProductPriceView.setText(inventoryInfo.getProductPrice().concat("$"));
+        int quant=inventoryInfo.getProductQuantity();
+        Log.e("QUANT","IS:"+quant);
+        cardViewHolder.ProductQuantView.setText(String.valueOf(inventoryInfo.getProductQuantity()));
         cardViewHolder.ProductThumbnailView.setImageBitmap(BitmapFactory.decodeFile(inventoryInfo.productImage));
+
+        cardViewHolder.ProductSaleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "SALE CLICKED", Toast.LENGTH_LONG).show();
+                int saleAmount = Integer.parseInt(cardViewHolder.ProductQuantView.getText().toString());
+                saleAmount -= 1;
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY, saleAmount);
+                int updateQuery =getContext().getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{cardViewHolder.ProductNameView.getText().toString()});
+
+            //    currentContext.getSupportLoaderManager().restartLoader(1, null, this);
+            }
+        });
         return row;
     }
 }

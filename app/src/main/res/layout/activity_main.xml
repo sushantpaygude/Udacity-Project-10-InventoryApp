@@ -44,7 +44,8 @@
         android:id="@+id/product_list"
         android:clickable="true"
         android:dividerHeight="2dp"
-        android:divider="@color/colorDivider">
+        android:divider="@color/colorDivider"
+        android:focusable="true">
     </ListView>
 
 
