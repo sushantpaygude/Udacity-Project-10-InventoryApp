@@ -8,14 +8,14 @@
         android:layout_height="60dp"
         android:id="@+id/product_thumbnail"
         android:gravity="center_horizontal|center_vertical"
-        android:layout_gravity="center"
-        android:background="@drawable/plus_blue"/>
+        android:layout_gravity="center"/>
 
     <Space
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_weight="1" >
     </Space>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:textSize="20sp"
         android:gravity="center_horizontal|center_vertical"
         android:layout_gravity="center"
-        android:text="NIKE"/>
+        style="@style/MyTextColor"/>
 
     <Space
         android:layout_width="0dp"
@@ -38,8 +38,8 @@
         android:id="@+id/product_quant"
         android:textSize="20sp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="SHOES"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        style="@style/MyTextColor"/>
 
     <Space
         android:layout_width="0dp"
@@ -48,10 +48,10 @@
     </Space>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/button_sale"
-        android:text="SALE"
+        android:background="@drawable/sale_blue"
         android:textSize="50sp"
         android:layout_gravity="center"
         android:focusable="false"/>

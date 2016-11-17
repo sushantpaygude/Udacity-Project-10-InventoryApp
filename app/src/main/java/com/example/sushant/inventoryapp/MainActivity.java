@@ -118,27 +118,4 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
-
-    public void saleClicked(View view)
-    {
-        getSupportLoaderManager().restartLoader(1,null,this);
-    }
-
-//    @Override
-//    public void onClick(View v) {
-//        int clicked=v.getId();
-//        switch (clicked) {
-//            case R.id.button_sale:
-//            Toast.makeText(getApplicationContext(), "SALE CLICKED", Toast.LENGTH_LONG).show();
-//            TextView saleView = (TextView) findViewById(R.id.product_price);
-//            TextView productName = (TextView) findViewById(R.id.product_name);
-//            int saleAmount = Integer.parseInt(saleView.getText().toString());
-//            saleAmount -= 1;
-//            ContentValues contentValues = new ContentValues();
-//            contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_PRICE, saleAmount);
-//            int updateQuery = getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{productName.getText().toString()});
-//            getSupportLoaderManager().restartLoader(1, null, this);
-//                break;
-//        }
-//    }
 }

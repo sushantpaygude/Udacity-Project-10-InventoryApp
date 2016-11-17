@@ -94,14 +94,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             selectedSupplierNameView.setText(cursor.getString(supplierColumnIndex));
             selectedSupplierContactView.setText(cursor.getString(contactColumnIndex));
             selectedImageView.setImageBitmap(BitmapFactory.decodeFile(cursor.getString(imageColumnIndex)));
-//            InventoryInfo inventoryInfo = new InventoryInfo();
-//            inventoryInfo.setProductName(cursor.getString(nameColumnIndex));
-//            inventoryInfo.setProductPrice(cursor.getString(priceColumnIndex));
-//            inventoryInfo.setProductQuantity(cursor.getInt(quantityColumnIndex));
-//            inventoryInfo.setProductImage(cursor.getString(imageColumnIndex));
-//            inventoryInfo.setProductSupplier(cursor.getString(supplierColumnIndex));
-//            inventoryInfo.setProductSupplierContact(cursor.getString(contactColumnIndex));
-
         }
         finally {
             cursor.close();
@@ -130,11 +122,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
 
             case R.id.button_decreaseQuant:
                 currentQuantity=Integer.parseInt(selectedQuantityView.getText().toString());
-                currentQuantity-=1;
-                contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY,currentQuantity);
-                updateQuery=getContentResolver().update(InventoryProvider.CONTENT_URI,contentValues,"product_name=?",new String[]{selectedNameView.getText().toString()});
-                getSupportLoaderManager().restartLoader(2,null,this);
-                break;
+                if(currentQuantity>0) {
+                    currentQuantity -= 1;
+                    contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY, currentQuantity);
+                    updateQuery = getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{selectedNameView.getText().toString()});
+                    getSupportLoaderManager().restartLoader(2, null, this);
+                }
+                    break;
 
             case R.id.button_delete:
                 promptDialog(this);

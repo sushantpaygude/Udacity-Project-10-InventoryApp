@@ -84,25 +84,29 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
 
         InventoryInfo inventoryInfo=getItem(position);
         cardViewHolder.ProductNameView.setText(inventoryInfo.getProductName());
-        int quant=inventoryInfo.getProductQuantity();
-        Log.e("QUANT","IS:"+quant);
         cardViewHolder.ProductQuantView.setText(String.valueOf(inventoryInfo.getProductQuantity()));
         cardViewHolder.ProductThumbnailView.setImageBitmap(BitmapFactory.decodeFile(inventoryInfo.productImage));
 
         cardViewHolder.ProductSaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "SALE CLICKED", Toast.LENGTH_LONG).show();
+
                 int saleAmount = Integer.parseInt(cardViewHolder.ProductQuantView.getText().toString());
-                saleAmount -= 1;
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY, saleAmount);
-                int updateQuery =getContext().getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{cardViewHolder.ProductNameView.getText().toString()});
-                if (updateQuery>0){
-                    // Restart loader implemented on ManiActivity
-                    mActivity.getSupportLoaderManager().restartLoader(1,null, mLoaderCallbacks);
+                if(saleAmount>0) {
+                    saleAmount -= 1;
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY, saleAmount);
+                    int updateQuery =getContext().getContentResolver().update(InventoryProvider.CONTENT_URI, contentValues, "product_name=?", new String[]{cardViewHolder.ProductNameView.getText().toString()});
+                    if (updateQuery>0){
+                        // Restart loader implemented on MainActivity
+                        mActivity.getSupportLoaderManager().restartLoader(1,null, mLoaderCallbacks);
+                    }
+                    Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
                 }
-            //    mContext.getSupportLoaderManager().restartLoader(1, null, this);
+                else {
+                    Toast.makeText(getContext(),"Out of Stock",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         return row;

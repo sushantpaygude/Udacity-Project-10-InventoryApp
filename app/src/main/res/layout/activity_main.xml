@@ -17,11 +17,12 @@
         android:id="@+id/text_title"
         android:text="@string/title"
         android:layout_gravity="center"
-        android:textSize="50sp"/>
+        android:textSize="50sp"
+        style="@style/MyTextColor"/>
 
     <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:id="@+id/product_add"
         android:onClick="startAdd"
         android:background="@drawable/plus_blue"
