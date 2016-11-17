@@ -41,6 +41,7 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
         ImageView ProductThumbnailView;
         TextView ProductNameView;
         TextView ProductQuantView;
+        TextView ProductPriceView;
         Button ProductSaleButton;
     }
 
@@ -75,6 +76,7 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
             cardViewHolder.ProductNameView = (TextView) row.findViewById(R.id.product_name);
             cardViewHolder.ProductThumbnailView = (ImageView) row.findViewById(R.id.product_thumbnail);
             cardViewHolder.ProductQuantView = (TextView) row.findViewById(R.id.product_quant);
+            cardViewHolder.ProductPriceView = (TextView) row.findViewById(R.id.product_price);
             cardViewHolder.ProductSaleButton=(Button)row.findViewById(R.id.button_sale);
             row.setTag(cardViewHolder);
         }
@@ -85,6 +87,7 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
         InventoryInfo inventoryInfo=getItem(position);
         cardViewHolder.ProductNameView.setText(inventoryInfo.getProductName());
         cardViewHolder.ProductQuantView.setText(String.valueOf(inventoryInfo.getProductQuantity()));
+        cardViewHolder.ProductPriceView.setText(inventoryInfo.getProductPrice().toString().concat("$"));
         cardViewHolder.ProductThumbnailView.setImageBitmap(BitmapFactory.decodeFile(inventoryInfo.productImage));
 
         cardViewHolder.ProductSaleButton.setOnClickListener(new View.OnClickListener() {

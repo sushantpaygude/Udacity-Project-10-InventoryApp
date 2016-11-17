@@ -85,13 +85,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this,
                 InventoryProvider.CONTENT_URI,
-                new String[]{"product_name","product_quantity","product_image"}, null, null, null);
+                new String[]{"product_name","product_price","product_quantity","product_image"}, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         int nameColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_NAME);
         int quantColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY);
+        int priceColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_PRICE);
         int imageColumnIndex = cursor.getColumnIndex(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_IMAGE);
 
         try {
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             while (cursor.moveToNext()) {
                 InventoryInfo inventoryInfo = new InventoryInfo();
                 inventoryInfo.setProductName(cursor.getString(nameColumnIndex));
+                inventoryInfo.setProductPrice(cursor.getString(priceColumnIndex));
                 inventoryInfo.setProductQuantity(Integer.parseInt(cursor.getString(quantColumnIndex)));
                 inventoryInfo.setProductImage(cursor.getString(imageColumnIndex));
                 mInventoryInfoList.add(inventoryInfo);
