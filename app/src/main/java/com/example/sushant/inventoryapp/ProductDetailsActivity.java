@@ -118,7 +118,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
                 contentValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_QUANTITY,currentQuantity);
                 int updateQuery=getContentResolver().update(InventoryProvider.CONTENT_URI,contentValues,"product_name=?",new String[]{selectedNameView.getText().toString()});
                 getSupportLoaderManager().restartLoader(2,null,this);
-                break;
+                    break;
 
             case R.id.button_decreaseQuant:
                 currentQuantity=Integer.parseInt(selectedQuantityView.getText().toString());
@@ -164,5 +164,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }

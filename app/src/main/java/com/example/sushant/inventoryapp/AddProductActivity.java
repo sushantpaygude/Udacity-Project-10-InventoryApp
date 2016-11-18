@@ -104,7 +104,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 newProductValues.put(InventoryContracts.InventoryDetails.COLUMN_PRODUCT_IMAGE, imgDecodableString);
             }
             Uri uri = getContentResolver().insert(InventoryProvider.CONTENT_URI, newProductValues);
-            Toast.makeText(getBaseContext(), "New record inserted", Toast.LENGTH_LONG)
+            Toast.makeText(getBaseContext(), "New record inserted", Toast.LENGTH_SHORT)
                     .show();
 
             Intent intent = new Intent(this, MainActivity.class);
@@ -128,9 +128,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             }
 
             if (productPriceView.getText().toString().matches(".*[a-zA-Z]+.*") || productQuantityView.getText().toString().matches(".*[a-zA-Z]+.*") || productSupplierContactView.getText().toString().matches(".*[a-zA-Z]+.*")
-                    || productSupplierContactView.getText().toString().length()!=10) {
-                Log.e("NO","IS:"+productSupplierContactView.getText().toString());
-                Log.e("VAl","IS"+validator);
+                    || productSupplierContactView.getText().toString().length()!=10 || productImageView.getDrawable()==null) {
                 validator = false;
             }
         }catch (Exception e)

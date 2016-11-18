@@ -74,7 +74,6 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
             row = layoutInflater.inflate(R.layout.list_item_card, parent, false);
             cardViewHolder = new CardViewHolder();
             cardViewHolder.ProductNameView = (TextView) row.findViewById(R.id.product_name);
-            cardViewHolder.ProductThumbnailView = (ImageView) row.findViewById(R.id.product_thumbnail);
             cardViewHolder.ProductQuantView = (TextView) row.findViewById(R.id.product_quant);
             cardViewHolder.ProductPriceView = (TextView) row.findViewById(R.id.product_price);
             cardViewHolder.ProductSaleButton=(Button)row.findViewById(R.id.button_sale);
@@ -88,7 +87,6 @@ public class ProductIntroAdapter extends ArrayAdapter<InventoryInfo> {
         cardViewHolder.ProductNameView.setText(inventoryInfo.getProductName());
         cardViewHolder.ProductQuantView.setText(String.valueOf(inventoryInfo.getProductQuantity()));
         cardViewHolder.ProductPriceView.setText(inventoryInfo.getProductPrice().toString().concat("$"));
-        cardViewHolder.ProductThumbnailView.setImageBitmap(BitmapFactory.decodeFile(inventoryInfo.productImage));
 
         cardViewHolder.ProductSaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
